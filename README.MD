@@ -1,1 +1,1 @@
-AwtToSwing allows you to easly translate BASICS Awt code to Swing Code
+AwtToSwing allows you to easly translate !BASIC! Awt code to Swing Code
