@@ -19,6 +19,9 @@ public class AwtToSwing
     private static String[] tabAwt;
     private static String[] tabSwing;
 
+    private static String sourceClassName;
+    private static String destClassName;
+
 
 
     public static void main(String[] args)
@@ -35,6 +38,11 @@ public class AwtToSwing
         //Datas
         final String fSource = args[0];
         final String fDest   = args[1];
+
+
+        //Class name definition
+        AwtToSwing.sourceClassName = fSource.split("\\.")[0];
+        AwtToSwing.destClassName   = fDest.split("\\.")[0];
 
 
         String line;
@@ -60,7 +68,9 @@ public class AwtToSwing
             while (sc.hasNext())
             {
                 line = sc.nextLine();
-                pw.write(convert(line) + "\n");
+                line = AwtToSwing.changeClassName(line);
+                line = AwtToSwing.convert(line);
+                pw.write(line + "\n");
             }
 
             fw.close();
@@ -112,6 +122,39 @@ public class AwtToSwing
         return s;
     }
 
+
+
+    //============================================================================================//
+    // CHANGE CLASS NAME                                                                          //
+    //============================================================================================//
+    private static String changeClassName(String lineSource)
+    {
+        String s = lineSource;
+
+        for (int i = 0; i < AwtToSwing.tabAwt.length; i++)
+            if (s.contains(AwtToSwing.sourceClassName))
+            {
+                char charBefore = '`';
+                char charAfter  = '`';
+
+                String toReplace = AwtToSwing.sourceClassName;
+
+
+                //Finding characters around
+                if (s.indexOf(toReplace) > 0)
+                    charBefore = s.charAt(s.indexOf(toReplace) - 1);
+
+                if (s.indexOf(toReplace) + toReplace.length() < s.length())
+                    charAfter = s.charAt(s.indexOf(toReplace) + toReplace.length());
+
+
+                //If toReplace is not part of something else
+                if (!AwtToSwing.isLetter(charBefore) && !AwtToSwing.isLetter(charAfter))
+                    s = s.replace(AwtToSwing.sourceClassName, AwtToSwing.destClassName);
+            }
+
+        return s;
+    }
 
     //============================================================================================//
     // READ AWT / SWING DATAS FROM FILE                                                           //
