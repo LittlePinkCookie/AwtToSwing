@@ -45,7 +45,7 @@ public class AwtToSwing
         final String fSource = args[0];
         final String fDest   = args[1];
 
-
+ 
         //Class name definition
         AwtToSwing.sourceClassName = fSource.split("\\.")[0];
         AwtToSwing.destClassName   = fDest.split("\\.")[0];
