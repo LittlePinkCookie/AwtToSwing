@@ -33,6 +33,12 @@ public class AwtToSwing
             System.exit(1);
         }
 
+        if (args[0].equals(args[1]))
+        {
+            System.out.println("ERREUR : Le fichier de destination doit avoir un nom différent du fichier source");
+            System.exit(1);
+        }
+
 
 
         //Datas
